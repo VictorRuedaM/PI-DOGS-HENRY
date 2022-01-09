@@ -1,10 +1,24 @@
 import './App.css';
+import {Route, Routes} from 'react-router-dom'
+import LandingPage from './components/LandingPage/LandingPage.jsx';
+import HomePage from './components/HomePage/HomePage.jsx';
+
 
 function App() {
   return (
+    
     <div className="App">
-      <h1>Henry Dogs</h1>
+      <Routes>
+        <Route path={'/'} exat element={<LandingPage/>}/>
+          
+       
+
+        <Route path={'/home'} element={<HomePage/>}/>
+          
+       
+      </Routes>
     </div>
+    
   );
 }
 
