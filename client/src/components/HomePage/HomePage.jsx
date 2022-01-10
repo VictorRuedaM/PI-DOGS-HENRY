@@ -5,13 +5,15 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import Card  from "../Card/Card";
 import Paginated from '../Paged/Paged';
+import SearchBarDog from "../SearchBar/SearchBar";
 
 import {getAllDogs,
         getDogsTemperaments,
         filterDogWeight,
         filterDogOrigin,
         filterDogName,
-        filterDogTemperaments
+        filterDogTemperaments,
+        getOneDog
         } from '../../actions/index.actions';
 
 export default function Home(){
@@ -44,7 +46,7 @@ export default function Home(){
     },[]);
 
 
-    // Funcion para recargar los datos de la pagina 
+    // recargar los datos de la pagina 
     function buttonClick(e){
 
         e.preventDefault();
@@ -59,27 +61,32 @@ export default function Home(){
         SetCurrentPage(1);
     };
 
+    // ordenar por origen (api o DB)
     function handleByOrigin(e){
 
         dispatch(filterDogOrigin(e.target.value))
 
     };
 
+    // ordenar por nombre (asc o desc)
     function handleByName(e){
         
         e.preventDefault();
         dispatch(filterDogName(e.target.value));
         SetCurrentPage(1);
         SetOrder(`Order ${e.target.value}`)
-    }
+    };
 
+    // filtrar por temperamento
     function handleFilterByTemperaments(e){
         
         e.preventDefault();
         dispatch(filterDogTemperaments(e.target.value));
         SetCurrentPage(1);
 
-    }
+    };
+
+    
 
     return(
 
@@ -90,9 +97,11 @@ export default function Home(){
 
             <h1>Canine Atlas    </h1>
 
-            <button onClick={e => buttonClick(e)}>Load Breeds</button>
+            <button onClick={e => buttonClick(e)}>Reload Breeds</button>
 
             <div>
+
+                <SearchBarDog/>
 
                 {/* Filtrado por por raza creada o de la api */}
                 <select onChange={e => handleByOrigin(e)}>

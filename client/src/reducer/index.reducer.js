@@ -3,7 +3,9 @@ import {GET_ALL_DOGS,
         FILTER_BY_WEIGHT,
         FILTER_BY_ORIGIN,
         FILTER_BY_NAME,
-        FILTER_BY_TEMPERAMENT
+        FILTER_BY_TEMPERAMENT,
+        GET_ONE_DOG,
+        CREATE_DOG_DB
     } from '../actions/actionsExports';
 
 
@@ -28,8 +30,16 @@ const rootReducer = (state= initialState, action) => {
                 
             }
 
-        case GET_ALL_TEMPERAMENTS:
+        case GET_ONE_DOG:
 
+            return{
+                ...state,
+                dogs: action.payload
+
+            }
+
+        case GET_ALL_TEMPERAMENTS:
+            
             return{
                 ...state,
                 dogsTemperaments: action.payload,
@@ -102,6 +112,14 @@ const rootReducer = (state= initialState, action) => {
                 ...state,
                 dogs:  action.payload === 'select' ? state.allDogs : fileterTemperament
             }
+
+        case CREATE_DOG_DB:
+
+            return{
+                ...state,
+
+            }
+
 
         default:
             return{

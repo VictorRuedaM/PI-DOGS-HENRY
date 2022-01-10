@@ -5,6 +5,7 @@ import {GET_ALL_DOGS,
         FILTER_BY_ORIGIN,
         FILTER_BY_NAME,
         FILTER_BY_TEMPERAMENT,
+        GET_ONE_DOG
     } from './actionsExports';
 
 
@@ -22,6 +23,20 @@ export function getAllDogs(){
     }
   
 };
+
+export function getOneDog(value){
+
+    return async (dispatch) => {
+
+        let dog = await axios(`http://localhost:3001/dogs?name=${value}`);
+
+        return dispatch({
+                type: GET_ONE_DOG,
+                payload: dog.data
+        })
+        
+    }
+}
 
 
 export function getDogsTemperaments(){
@@ -80,4 +95,15 @@ export function filterDogOrigin(value){
         payload: value
     }
 
+}
+
+
+export function createDogDB(data){
+
+    return async (dispatch) => {
+
+        const result = await axios.post(`http://localhost:3001/dog${data}`);
+        console.log(result)
+        return result;
+    }
 }
