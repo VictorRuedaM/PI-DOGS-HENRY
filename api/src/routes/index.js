@@ -88,7 +88,7 @@ router.get('/temperament', async (req, res) => {
 
 // Ruta /dog que crea una nueva raza de perro en la base de datos local.
 router.post('/dog', async (req, res) => {
-
+    console.log('RRRRRRRRRRRRR',req.body)
     const dogCreate = await createDog(req);
 
     res.send(dogCreate);

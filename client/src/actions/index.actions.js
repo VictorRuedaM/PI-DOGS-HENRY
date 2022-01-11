@@ -98,12 +98,10 @@ export function filterDogOrigin(value){
 }
 
 
-export function createDogDB(data){
 
+export function createDogDB(info){
     return async (dispatch) => {
-
-        const result = await axios.post(`http://localhost:3001/dog${data}`);
-        console.log(result)
-        return result;
+        const response = await axios.post('http://localhost:3001/dog', info);
+        return response;
     }
 }

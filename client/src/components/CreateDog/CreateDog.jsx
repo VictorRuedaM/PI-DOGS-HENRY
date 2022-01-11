@@ -1,12 +1,13 @@
 import React from "react";
 import {useState, useEffect} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {createDogDB, getDogsTemperaments} from '../../actions/index.actions';
 import {useSelector, useDispatch} from 'react-redux';
 
 
 export function CreateDog(){
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(getDogsTemperaments());
@@ -14,7 +15,7 @@ export function CreateDog(){
 
     const allTemperaments = useSelector((state) => state.dogsTemperaments);
 
-    const [formDog, setFormDog] = useState({
+    const [formDog, SetFormDog] = useState({
 
         name: '',
         height: '',
@@ -33,16 +34,80 @@ export function CreateDog(){
         lmax: 0,
     })
 
-    function fff(e){
+    function handleInputs(e){
         
         SetInputs({
             ...inputs,
             [e.target.name]: e.target.value
         })
-        console.log(inputs.hmin)
+        
+        // console.log(inputs)
+        
+    }
+
+    function handleFormDog(e){
+
+            
+        SetFormDog({
+            ...formDog,
+            [e.target.name]: e.target.value
+            
+        }) 
+          
+        
+        
+        
+    }
+
+    function handleSelect(e){
+
+        SetFormDog({
+            ...formDog,
+            temperament: [...formDog.temperament, e.target.value],
+            'height':`${inputs.hmin} - ${inputs.hmax}`,
+            'weight':`${inputs.wmin} - ${inputs.wmax}`,
+            'life_span':`${inputs.lmin} - ${inputs.lmax} years`,
+        });
+       
     }
    
+    function removeTem(t){
+       
+        SetFormDog({
+            ...formDog,
+            temperament: [...formDog.temperament.filter(e => e !== t)]
+        });
+        
 
+    }
+
+    function handleSubmit(e){
+
+        e.preventDefault();
+        
+        dispatch(createDogDB(formDog)); 
+
+        console.log(formDog.name)
+        alert('Breed created successfully!!!')
+        SetInputs({
+            hmin: 0,
+            hmax: 0,
+            wmin: 0,
+            wmax: 0,
+            lmin: 0,
+            lmax: 0,
+        });
+        SetFormDog({
+            name: '',
+            height: '',
+            weight: '',
+            life_span: '',
+            image: '',
+            temperament: []
+        });
+
+        navigate('/home')
+    }
 
     return(
 
@@ -51,50 +116,50 @@ export function CreateDog(){
 
             <h1>Create Dog Breed</h1>
 
-            <form action="">
+            <form onSubmit={(e) => handleSubmit(e)}>
 
                 <div>
                     <label>Name: </label>
-                    <input type="text" name="name" value={formDog.name}  />
+                    <input type="text" name="name" value={formDog.name} onChange={handleFormDog} />
                 </div>
 
                 <div>
                     <label>Min height: </label>
-                    <input type="number" name="hmin" min='1' max='49' value={inputs.hmin} onChange={fff}/>
+                    <input type="number" name="hmin" min='1' max='100' value={inputs.hmin} onChange={handleInputs}/>
                 </div>
 
                 <div>
                     <label>Max height: </label>
-                    <input type="number" name="hmax" min='50' max='100' value={inputs.hmax} />
+                    <input type="number" name="hmax" min='1' max='100' value={inputs.hmax} onChange={handleInputs} />
                 </div>
 
                 <div>
                     <label>Min weight: </label>
-                    <input type="number" name="wmin" min='1' max='49' value={inputs.wmin} />
+                    <input type="number" name="wmin" min='1' max='100' value={inputs.wmin} onChange={handleInputs}/>
                 </div>
 
                 <div>
                     <label>Max weight: </label>
-                    <input type="number" name="wmax" min='50' max='100' value={inputs.wmax} />
+                    <input type="number" name="wmax" min='1' max='100' value={inputs.wmax} onChange={handleInputs}/>
                 </div>
 
                 <div>
                     <label>Min life years: </label>
-                    <input type="number" name="lmin" min='1' max='20'value={inputs.lmin} />
+                    <input type="number" name="lmin" min='1' max='10'value={inputs.lmin} onChange={handleInputs}/>
                 </div>
 
                 <div>
                     <label>Max life years: </label>
-                    <input type="number" name="limin" min='1' max='20'value={inputs.lmax} />
+                    <input type="number" name="lmax" min='10' max='20'value={inputs.lmax} onChange={handleInputs}/>
                 </div>
 
                 <div>
                     <label>Image: </label>
-                    <input type="text" name="image" value={formDog.image} />
+                    <input type="text" name="image" value={formDog.image} onChange={handleFormDog}/>
                 </div>
 
                 <div>
-                    <select>
+                    <select onChange={handleSelect}>
                         <option value={'select'}>Select Temperament</option>
                         {
                             allTemperaments && allTemperaments.map(e => 
@@ -110,6 +175,22 @@ export function CreateDog(){
                 <Link to={'/home'}><button>Cancel</button></Link>
                 
             </form>
+
+            <div>
+                
+                    <ul>
+                        {
+                            formDog.temperament.map(t => 
+                                
+                                <li>{t} 
+                                <button onClick={() => removeTem(t)}>X</button>
+                                </li>
+                            )
+                        }
+
+                    </ul>
+                
+            </div>
 
 
 
