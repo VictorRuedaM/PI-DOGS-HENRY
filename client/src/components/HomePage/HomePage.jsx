@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import Card  from "../Card/Card";
 import Paginated from '../Paged/Paged';
 import SearchBarDog from "../SearchBar/SearchBar";
+import style from './Home.style.css';
 
 import {getAllDogs,
         getDogsTemperaments,
@@ -13,7 +14,7 @@ import {getAllDogs,
         filterDogOrigin,
         filterDogName,
         filterDogTemperaments,
-        getOneDog
+       
         } from '../../actions/index.actions';
 
 export default function Home(){
@@ -25,6 +26,8 @@ export default function Home(){
 
     // Estado de ordenamiento por nombre
     const [order, SetOrder] = useState('');
+
+    
 
     // Paginado de la aplicación.
 
@@ -41,8 +44,10 @@ export default function Home(){
     // console.log('AAAAAA',allDogs)
     // se cargan por primera vez los datos con el metodo useEffect llamando a la action getAllDogs
     useEffect(() => {
+        
         dispatch(getAllDogs());
-        dispatch(getDogsTemperaments())
+        dispatch(getDogsTemperaments());
+        
     },[]);
 
 
@@ -86,7 +91,7 @@ export default function Home(){
 
     };
 
-    
+    console.log('QQQQQ', currentDogs.length)
 
     return(
 
@@ -159,9 +164,10 @@ export default function Home(){
             <br />
             {
                 // Mapear el resultado que llega de state
+                
                 currentDogs && currentDogs.map(e => {
                     
-                    // Los temperamentos de los dogs creados hay que pasalos de array de objetos a string
+                    // Los temperamentos de los dogs creados hay que pasarlos de array de objetos a string
                     // para que se puedan visualizar en la pagina
                     if(Array.isArray(e.temperaments)){
                         
@@ -176,16 +182,22 @@ export default function Home(){
                     }
                     return(
                         // Se le pasa la data a el componente Card 
+
                         <div>
-                            <Card 
-                                image={e.image} 
-                                name={e.name}
-                                weight={e.weight}
-                                temperament={e.temperament}
-                            />
+                            <Link to={`/home/${e.id}`}>
+
+                                <Card 
+                                    image={e.image} 
+                                    name={e.name}
+                                    weight={e.weight}
+                                    temperament={e.temperament}
+                                />
+                            </Link>
                          </div>
                     )
                 })
+
+                
    
             }
 

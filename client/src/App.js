@@ -3,7 +3,7 @@ import {Route, Routes} from 'react-router-dom'
 import LandingPage from './components/LandingPage/LandingPage.jsx';
 import HomePage from './components/HomePage/HomePage.jsx';
 import {CreateDog} from './components/CreateDog/CreateDog.jsx';
-import DetailsPage from './components/DetailsPage/DetailsPage.jsx'
+import {DetailsPage} from './components/DetailsPage/DetailsPage.jsx';
 
 function App() {
   return (

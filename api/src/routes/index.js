@@ -38,7 +38,7 @@ router.get('/dogs', async (req, res) => {
             let dog = await dogsData.filter(e => e.name.toLowerCase().includes(name.toLowerCase()));
 
             if(dog.length > 0) return res.status(200).json(dog);
-            else res.status(404).send('There are no breeds of dogs with that name...');
+            else res.status(404).json('There are no breeds of dogs with that name...');
 
         }else{
             return res.status(200).json(dogsData);
@@ -88,7 +88,7 @@ router.get('/temperament', async (req, res) => {
 
 // Ruta /dog que crea una nueva raza de perro en la base de datos local.
 router.post('/dog', async (req, res) => {
-    console.log('RRRRRRRRRRRRR',req.body)
+   
     const dogCreate = await createDog(req);
 
     res.send(dogCreate);

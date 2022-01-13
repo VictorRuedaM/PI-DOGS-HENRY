@@ -5,7 +5,9 @@ import {GET_ALL_DOGS,
         FILTER_BY_ORIGIN,
         FILTER_BY_NAME,
         FILTER_BY_TEMPERAMENT,
-        GET_ONE_DOG
+        GET_ONE_DOG,
+        GET_DOG_DETAIL,
+        DOG_NOT_FOUND
     } from './actionsExports';
 
 
@@ -28,12 +30,19 @@ export function getOneDog(value){
 
     return async (dispatch) => {
 
-        let dog = await axios(`http://localhost:3001/dogs?name=${value}`);
-
-        return dispatch({
-                type: GET_ONE_DOG,
-                payload: dog.data
-        })
+        
+        try {
+            
+            let dog = await axios(`http://localhost:3001/dogs?name=${value}`);
+            console.log('RRRRRUUUUU',dog)
+            return dispatch({
+                    type: GET_ONE_DOG,
+                    payload: dog.data
+            })
+        } catch (error) {
+            console.log(error)
+            alert('Dog not found!!!')
+        }
         
     }
 }
@@ -103,5 +112,21 @@ export function createDogDB(info){
     return async (dispatch) => {
         const response = await axios.post('http://localhost:3001/dog', info);
         return response;
+    }
+}
+
+
+export function getDogDetail(id){
+
+    return async (dispatch) => {
+
+        const response = await axios.get(`http://localhost:3001/dogs/${id}`);
+
+        console.log(response);
+
+        return dispatch({
+            type: GET_DOG_DETAIL,
+            payload: response.data
+        })
     }
 }

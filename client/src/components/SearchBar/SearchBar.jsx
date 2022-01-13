@@ -1,6 +1,6 @@
 import React from "react";
 import {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {getOneDog} from '../../actions/index.actions';
 
 
@@ -9,7 +9,9 @@ export default function SearchBarDog(){
 
     const dispatch = useDispatch();
 
-    const [name, SetName] = useState('');
+    const notFound = useSelector((state) => state.dogs);
+
+    const [name, setName] = useState('');
 
 
     // funcion que toma los cambios del input y los guarda en el estado local 
@@ -17,7 +19,7 @@ export default function SearchBarDog(){
 
         e.preventDefault();
         if(e.target.value && typeof e.target.value  === 'string'){
-            SetName(e.target.value);
+            setName(e.target.value);
         }
         console.log('NAME',name)
     };
@@ -27,13 +29,14 @@ export default function SearchBarDog(){
         e.preventDefault();
         
         dispatch(getOneDog(name));
-        SetName('')
+        setName('')
     };
 
+    
     return (
 
         <div>
-
+            
             <input type="text"  placeholder="Search Breed..." value={name} onChange={(e) => handleInput(e)}/>
             
             <button type="submit" onClick={(e) => handleSubmit(e)}>Search</button>

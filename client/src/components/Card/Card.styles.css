@@ -1,0 +1,35 @@
+.contenedor {
+    display: flex;
+    flex-wrap: wrap;
+    width: 300px;
+    height: 400px;
+    justify-content: center;
+    background-color:rgb(24, 24, 63);
+    color: white    ;
+    border-radius: 3rem;
+    margin: 0.5rem;
+    padding: 10px;
+    
+}
+.title {
+   display: flex;
+   position: relative;
+   justify-content: center;
+}
+
+.imgPerro {
+    display: flex;
+    position: relative;
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* height: auto;
+    width: auto; */
+    max-width: 250px;
+    max-height: 250px;
+    border-radius: 1rem;
+    margin: 1rem;
+}
+
+.link {
+    text-decoration: none;
+}

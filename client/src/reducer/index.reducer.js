@@ -5,7 +5,9 @@ import {GET_ALL_DOGS,
         FILTER_BY_NAME,
         FILTER_BY_TEMPERAMENT,
         GET_ONE_DOG,
-        CREATE_DOG_DB
+        CREATE_DOG_DB,
+        GET_DOG_DETAIL,
+        DOG_NOT_FOUND
     } from '../actions/actionsExports';
 
 
@@ -14,7 +16,9 @@ const initialState = {
     dogs : [],
     allDogs: [],
     dogsTemperaments: [],
-    allDogsTemperaments: []
+    allDogsTemperaments: [],
+    dogDetail: [],
+    
 };
 
 const rootReducer = (state= initialState, action) => {
@@ -31,12 +35,13 @@ const rootReducer = (state= initialState, action) => {
             }
 
         case GET_ONE_DOG:
-
+            console.log('HHHHH',action.payload)
             return{
                 ...state,
-                dogs: action.payload
+                dogs: action.payload 
 
             }
+
 
         case GET_ALL_TEMPERAMENTS:
             
@@ -120,6 +125,13 @@ const rootReducer = (state= initialState, action) => {
 
             }
 
+        case GET_DOG_DETAIL:
+
+            return{
+                ...state,
+                dogDetail: action.payload
+            }
+            
 
         default:
             return{

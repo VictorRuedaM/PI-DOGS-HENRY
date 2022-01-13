@@ -14,6 +14,7 @@ const createDog = async (req) => {
         temperament
     } = req.body;
 
+    console.log('GGGGG', name.length)
     if(name && height && weight && life_span && temperament){
 
         try {
