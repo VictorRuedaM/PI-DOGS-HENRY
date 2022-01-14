@@ -11,12 +11,23 @@ ul.pagination li {display: inline;}
 
 ul.pagination li a {
     color: white;
-    background-color: blue;
+    background-color: hsla(0, 0%, 0%, 0.815);
     float: left;
     padding: 6px 8px;
     text-decoration: none;
     transition: background-color .3s;
     border: 1px solid #ddd;
+    border-radius: 3px;
     margin: 0 4px;
+}
+
+ul.pagination li a:hover{
+
+    background-color: #be4710;
+}
+
+ul.pagination li .active{
+    background-color: #be4710;
+    font-weight: bold;
 }
 

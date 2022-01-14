@@ -1,0 +1,27 @@
+.container{
+    display: flex;
+}
+
+
+.card{
+    background-color: hsla(0, 0%, 0%, 0.815);
+    color: #ffffff;
+    box-sizing: content-box;
+    width: 20%;
+    font-size: 12px;
+    border: solid #be4710 3px;
+    padding: 3px;
+    margin: 10px;
+    border-radius: 20px;
+    width: 250px;
+    height: 300px;
+}
+
+.image{
+    height: 120px;
+    width: 150px;
+    border: solid #be4710 2px;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+

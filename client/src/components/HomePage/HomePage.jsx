@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 import Card  from "../Card/Card";
 import Paginated from '../Paged/Paged';
 import SearchBarDog from "../SearchBar/SearchBar";
-import style from './Home.style.css';
+import s from './Home.module.css';
 
 import {getAllDogs,
         getDogsTemperaments,
@@ -96,20 +96,22 @@ export default function Home(){
     return(
 
         <div>
-            <Link to={'/createDog'}>
-                Create Breed
+            <h1 className={s.title}>My Best Friend</h1>
+
+            <Link  to={'/createDog'}>
+                <button className={s.buttonCreate}>Create Breed</button>
             </Link>
 
-            <h1>Canine Atlas    </h1>
+            
 
-            <button onClick={e => buttonClick(e)}>Reload Breeds</button>
+            <button className={s.buttonReload} onClick={e => buttonClick(e)}>Reload Breeds</button>
 
             <div>
 
                 <SearchBarDog/>
 
                 {/* Filtrado por por raza creada o de la api */}
-                <select onChange={e => handleByOrigin(e)}>
+                <select className={s.selectOptions} onChange={e => handleByOrigin(e)}>
                     
                     <option value={'all'}>All Breeds</option>
                     <option value={'api'}>Breeds Api</option>
@@ -120,7 +122,7 @@ export default function Home(){
 
             <div>
                 {/* Filtrado alfabetico */}
-                <select onChange={(e) => handleByName(e)}>
+                <select className={s.selectOptions} onChange={(e) => handleByName(e)}>
                     <option defaultValue={'all'}>Name</option>
                     <option value={'asc'}>Ascendingly</option>
                     <option value={'desc'}>Descendingly</option>
@@ -129,7 +131,7 @@ export default function Home(){
 
             <div>
                 {/* Filtrado por peso */}
-                <select onChange={e => handleFilterByWeight(e)}>
+                <select className={s.selectOptions} onChange={e => handleFilterByWeight(e)}>
                     <option value={'all'}>Weight</option>
                     <option value={'asc'}>High Weight</option>
                     <option value={'desc'}>low Weight</option>
@@ -139,7 +141,7 @@ export default function Home(){
 
             <div>
                 {/* Filtrado por temperamentos */}
-                <select onChange={e => handleFilterByTemperaments(e)}>
+                <select className={s.selectOptions} onChange={e => handleFilterByTemperaments(e)}>
                     <option value={'select'}>Select Temperament</option>
                     {
                         allTemperaments && allTemperaments.map((e) => 
@@ -162,44 +164,49 @@ export default function Home(){
                 currentPage={currentPage}
             />
             <br />
-            {
-                // Mapear el resultado que llega de state
-                
-                currentDogs && currentDogs.map(e => {
-                    
-                    // Los temperamentos de los dogs creados hay que pasarlos de array de objetos a string
-                    // para que se puedan visualizar en la pagina
-                    if(Array.isArray(e.temperaments)){
+
+            <div className={s.card} >
+                {
+                    // Mapear el resultado que llega de state
+                    currentDogs.length ? 
+                    currentDogs && currentDogs.map(e => {
                         
-                        let arr = [];
+                        // Los temperamentos de los dogs creados hay que pasarlos de array de objetos a string
+                        // para que se puedan visualizar en la pagina
+                        if(Array.isArray(e.temperaments)){
+                            
+                            let arr = [];
 
-                        e.temperaments.forEach(e => {
-                            arr.push(' '+e.name);
-                        });
+                            e.temperaments.forEach(e => {
+                                arr.push(' '+e.name);
+                            });
 
-                        e.temperament = arr.toString()
-                        
-                    }
-                    return(
-                        // Se le pasa la data a el componente Card 
+                            e.temperament = arr.toString()
+                            
+                        }
+                        return(
+                            // Se le pasa la data a el componente Card 
 
-                        <div>
-                            <Link to={`/home/${e.id}`}>
+                            <div >
+                                <Link className={s.link }to={`/home/${e.id}`}>
 
-                                <Card 
-                                    image={e.image} 
-                                    name={e.name}
-                                    weight={e.weight}
-                                    temperament={e.temperament}
-                                />
-                            </Link>
-                         </div>
-                    )
-                })
+                                    <Card 
+                                        image={e.image} 
+                                        name={e.name}
+                                        weight={e.weight}
+                                        temperament={e.temperament}
+                                    />
+                                </Link>
+                            </div>
+                        )
+                    })
 
-                
-   
-            }
+                    :
+                    <div className={s.preloader}></div>
+    
+                }
+
+            </div>
 
         </div>
     )

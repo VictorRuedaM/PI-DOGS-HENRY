@@ -1,5 +1,5 @@
 import React from "react";
-import style from './Paged.css';
+import s from './Paged.module.css';
 
 
 
@@ -16,12 +16,14 @@ export default function Paginated({dogsPerPage, allDogs, paginated, currentPage}
     return (
 
         <nav>
-            <ul className='pagination'>
+            <ul className={s.pagination}>
                 {
                     numberOfPage && numberOfPage.map(n => (
-                            <li key={n} >
+                            <li key={n}  >
                                 
-                                <a href="#" onClick={() => paginated(n)} >{n}</a>
+                                <a className={
+                  currentPage === n ? s.active : s.pagination
+                } href="#" onClick={() => paginated(n)} >{n}</a>
                             </li>
                     ))
                     

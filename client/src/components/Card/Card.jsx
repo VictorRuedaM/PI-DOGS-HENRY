@@ -1,5 +1,5 @@
 import React from "react";
-import './Card.styles.css';
+import s from './Card.module.css';
 
 export default function Card(props){
 
@@ -10,9 +10,9 @@ export default function Card(props){
     return(
 
         
-        <div className="contenedor">
-            <div className={'card'}>
-                <img className='imgPerro' src={image} alt="Dog" width='200px' height='200px' />
+        <div className={s.container}>
+            <div className={s.card}>
+                <img className={s.image} src={image} alt="Dog"  />
                 <h2>{name}</h2>
                 <h4>Weight: {weight} Kg.</h4>
                 <h4>Temperaments: {temperament}</h4>

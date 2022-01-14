@@ -1,0 +1,20 @@
+.search{
+    background-color: hsla(0, 0%, 0%, 0.815);
+    color: #ffffff;
+    border: 1px solid #ffd000;
+    border-radius: 5px;
+    height: 25px;
+    width: 350px;
+    font-size: 15px;
+}
+
+.buttonSearch{
+    background-color: hsla(0, 0%, 0%, 0.815);
+    border: 1px solid #ffd000;
+    border-radius: 5px;
+    font-size: 15px;
+    color: #ffd000;
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+    }

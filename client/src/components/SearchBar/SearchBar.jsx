@@ -2,6 +2,7 @@ import React from "react";
 import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {getOneDog} from '../../actions/index.actions';
+import s from './Search.module.css'
 
 
 
@@ -37,9 +38,9 @@ export default function SearchBarDog(){
 
         <div>
             
-            <input type="text"  placeholder="Search Breed..." value={name} onChange={(e) => handleInput(e)}/>
+            <input className={s.search} type="text"  placeholder="Search Breed..." value={name} onChange={(e) => handleInput(e)}/>
             
-            <button type="submit" onClick={(e) => handleSubmit(e)}>Search</button>
+            <button className={s.buttonSearch} type="submit" onClick={(e) => handleSubmit(e)}>Search</button>
         </div>
     )
 }

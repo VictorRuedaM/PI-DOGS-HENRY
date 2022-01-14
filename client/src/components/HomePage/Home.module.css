@@ -1,0 +1,93 @@
+/* body{
+  background-color: #000000;
+  background-image: linear-gradient(180deg, #000000 12%, #bf5224dc 55%, #000000 90%);
+
+
+} */
+
+.link{
+  text-decoration: none;
+}
+
+.buttonCreate{
+  background-color: hsla(0, 0%, 0%, 0.815);
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  font-size: 20px;
+  color: #ffffff;
+  padding: 5px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.buttonCreate :hover{
+  background-color: #be4710;
+  
+}
+
+.buttonReload{
+  background-color: hsla(0, 0%, 0%, 0.815);
+  border: 1px solid #ffd000;
+  border-radius: 5px;
+  font-size: 20px;
+  color: #ffd000;
+  padding: 5px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.card{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: space-between;
+  
+ 
+  
+}
+
+.title{
+    
+  background-color: hsla(0, 0%, 0%, 0.815);
+  font-size: 50px;
+  color: #ffd000;
+  margin-top: 30px;
+  padding: 20px;
+ 
+}
+
+.selectOptions{
+    
+  background-color: hsla(0, 0%, 0%, 0.815);
+  color: #ffd000;
+  border: 1px solid #ffd000;
+  border-radius: 5px;
+  font-size: 15px;
+  height: 30px;
+  padding: 5px;
+  margin: 5px;
+  width: 250px;
+}
+
+
+
+/* -------------------------------------------------------------------- */
+.preloader {
+  width: 70px;
+  height: 70px;
+  border: 10px solid hsla(0, 0%, 0%, 0.815);
+  border-top: 10px solid #ffd000;
+  border-radius: 50%;
+  animation-name: girar;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
