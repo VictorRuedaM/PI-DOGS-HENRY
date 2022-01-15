@@ -3,13 +3,13 @@ const apiKey = require.resolve('../../.env')
 const {Dog, Temperament} = require('../db');
 
 
-// Consultar a la api para obtener todos los dogs
+// funcion que consulta a la api para obtener todos los dogs
 const getDogApi = async () => {
 
    try {
         const urlApi = await axios.get(`https://api.thedogapi.com/v1/breeds?${apiKey}`);
 
-        // Mapear la data recibida para obtener solo los datos necesarios.
+        // Mapear la data recibida para obtener solo los datos necesarios de cada raza.
         const dogApi = await urlApi.data.map((e) => {
         return {
             id: e.id,
@@ -31,11 +31,12 @@ const getDogApi = async () => {
 
 };
 
-// Obtener los datos de la base de datos local
+// funcion para obtener los datos de la base de datos local de las razas creadas.
 const getDogDB = async () => {
 
     try {
         const dogDb = await Dog.findAll({
+            // se incluye el temperamento de la tabla temperament para cada raza
             include:{
                 model: Temperament,
                 attributes: ['name'],

@@ -1,8 +1,9 @@
 const { Router } = require('express');
-const axios = require('axios');
-require('dotenv').config();
-const {Temperament} = require('../db')
 
+require('dotenv').config();
+
+
+// Se importan los respectivos controladores para cade ruta.
 const {getAllDogs} = require('../controllers/dog.controller');
 const {getDogTemperaments} = require('../controllers/temperaments.controller');
 const {createDog} = require('../controllers/createDog.controller');
@@ -57,14 +58,20 @@ router.get('/dogs/:id', async (req, res) => {
 
     const {id} = req.params;
 
-    let dogsData = await getAllDogs();
+    try {
+        let dogsData = await getAllDogs();
     
-    // Filtrado por Id para obtener la raza
-    let dog = await dogsData.filter(e => e.id == id);
-    console.log(dog)
-    // console.log('DOG>>>', dogsData)
-    if(dog.length > 0) return res.status(200).json(dog);
-    else res.status(404).send('There are no breeds of dogs with that Id...');
+        // Filtrado por Id para obtener la raza
+        let dog = await dogsData.filter(e => e.id == id);
+        console.log(dog)
+        // console.log('DOG>>>', dogsData)
+        if(dog.length > 0) return res.status(200).json(dog);
+        else res.status(404).send('There are no breeds of dogs with that Id...');
+
+    } catch (error) {
+        console.log(`<<<Error in [/dogs/:id] ${error}>>>`);
+        res.status(500);
+    }
 
     
 
@@ -89,9 +96,16 @@ router.get('/temperament', async (req, res) => {
 // Ruta /dog que crea una nueva raza de perro en la base de datos local.
 router.post('/dog', async (req, res) => {
    
-    const dogCreate = await createDog(req);
+    try {
+        // Se le pasa el req a la funcion controladora para extraer la data y crear la raza.
+        const dogCreate = await createDog(req);
 
-    res.send(dogCreate);
+        res.send(dogCreate);
+
+    } catch (error) {
+        console.log(`<<<Error in [/dog (post)] ${error}>>>`);
+        
+    }
 });
 
 
@@ -100,10 +114,15 @@ router.get('/weight/:value', async (req, res) => {
 
     const {value} = req.params;
 
-    const result = await filterByWeight(value)
+    try {
+        const result = await filterByWeight(value)
     // console.log('RRRRRR',result)
 
-    res.send(result);
+        res.send(result);
+
+    } catch (error) {
+        console.log(`<<<Error in [/weight/:value] ${error}>>>`);
+    }
 })
 
 

@@ -7,7 +7,7 @@ const {
 } = process.env;
 
 
-
+// Se crea la conexion a base de datos pasando los parametros del archivo .env
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/dogs`, {
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
@@ -38,6 +38,7 @@ const { Dog, Temperament } = sequelize.models;
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 
+// Se crean las relaciones de la tablas Dog y Temperament de muchos a muchos.
 Dog.belongsToMany(Temperament, {through: 'temperament_breed'});
 Temperament.belongsToMany(Dog, {through: 'temperament_breed'});
 

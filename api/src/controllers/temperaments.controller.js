@@ -1,23 +1,22 @@
 const {getAllDogs} = require('./dog.controller');
 const {Temperament} = require('../db');
 
-
+// Funcion que obtine los temperamentos y los guarda en la base de datos
 const getDogTemperaments = async () => {
 
     try {
+        // se llama a la funcion controladora getAllDogs para obtener todos los datos de las razas de la api
+        // de la data devuelta se extraen los temperamentos
         const dogsInfo = await getAllDogs();
 
         let dogsTemperaments = await dogsInfo.map(e => e.temperament);
 
-        // let dataTem = dogsTemperaments.toString().split(/\s*,\s*/).filter(e => e !== '');
+     
         // Se unen las cadenas y se separa por las comas
         let dataTem = dogsTemperaments.join().split(',')
         // Se eliminan los espacios en blanco a cada lado de las cadenas
         dataTem = dataTem.map(e => e.trim());
 
-        // Se crea una instancia de Set para que devuelve una coleccion con los temperamentos no repetidos.
-        // const set = new Set(dataTem)
-        // console.log('DATA',dataTem)
 
         // Se agregan los temperamentos a la base de datos local 
         dataTem.forEach(e => {
