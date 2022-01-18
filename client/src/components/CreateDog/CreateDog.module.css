@@ -112,6 +112,14 @@
    
 }
 
+.box{
+    
+    display: block;
+    align-items: center;
+    width: 400px;
+
+}
+
 /* -------------------------------------------- */
 
 .selectOptions{

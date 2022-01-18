@@ -21,7 +21,7 @@ const getDogApi = async () => {
             temperament: e.temperament,
         };
         });
-
+        // console.log('GEEEETTTAAA',dogApi)
         return dogApi;
 
    } catch (error) {

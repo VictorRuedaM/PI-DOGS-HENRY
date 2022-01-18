@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import s from './LandingPage.module.css';
 
 
-
+// Funcion LandingPage que renderiza la landing con la imagen de fondo y el boton para ingresar a la home.
 export default function LandingPage(){
 
     return(

@@ -6,7 +6,8 @@ import {getDogDetail} from '../../actions/index.actions';
 import s from './Detail.module.css';
 
 
-
+// Funcion DetailsPage que renderiza los detalles de cada raza cuando si da click en cada Card en el home
+// recibe mediante url el Id de la raza selecionada. 
 export function DetailsPage(){
 
     const {id} = useParams();
@@ -14,12 +15,14 @@ export function DetailsPage(){
     const dispatch = useDispatch();
 
     useEffect(() => {
+        // Se envia el Id a la action getDogDetail para obtener la data de la raza
         dispatch(getDogDetail(id));
     },[dispatch]);
 
     const dog = useSelector((state) => state.dogDetail);
     
     // console.log('>>>>>>>>>>>>>>>>>>>>>',dog[0].temperaments[1])
+    // Se renderiza la card de details.
     return(
 
         <div className={s.container}>

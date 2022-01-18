@@ -6,7 +6,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import s from './CreateDog.module.css';
 
 
-
+// Funcion para validar lo ingresado a los inputs del form que guarda en el estado errors como un objete si no cumple lo requirido, el error del cada input
+// para luego ser renderizado, adicinalmente si en el estado error hay elementos no permitira el envio del form.
 function validateInputs(inputs){
     let errorsInputs = {};
 
@@ -40,6 +41,8 @@ function validateInputs(inputs){
     return errorsInputs;
 }
 
+
+// Funcion validateFormDog cumple la misma funcion de validateInputs solo que en le resto del form, esto es el input name.
 function validateFormDog(formDog){
 
     let errors = {}; 
@@ -57,21 +60,27 @@ function validateFormDog(formDog){
 
 
 
-
+// Funcion CreateDog renderiza el form.
 export function CreateDog(){
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    // Se ejecuta en el useEffect la action getDogsTemperaments para obtener los temperamentos.
     useEffect(() => {
         dispatch(getDogsTemperaments());
     }, []);
 
+    // Se traen los temperamentos del state.dogsTemperaments
     const allTemperaments = useSelector((state) => state.dogsTemperaments);
 
+    // State local errors de los inputs
     const [errors, setErrors] = useState({});
+    // State local dogErr del resto del form
     const [dogErr, setDogErr] = useState({});
-    const [errorForm, setErrorForm] = useState('')
+    // const [errorForm, setErrorForm] = useState('')
 
+
+    // Estado local para todos los imputs del form que luego sera enviado a la ruta post.
     const [formDog, SetFormDog] = useState({
 
         name: '',
@@ -82,6 +91,7 @@ export function CreateDog(){
         temperament: []
     });
 
+    // Estado local de los inputs weght, height y life_span que recoje la data de estos campos y los envia al state formDog.
     const [inputs, SetInputs] = useState({
         hmin: 0,
         hmax: 0,
@@ -91,6 +101,7 @@ export function CreateDog(){
         lmax: 0,
     })
 
+    // Funcion handleInputs que guarda el valor de los inputs weght, height y life_span en el estado local inpusts.
     function handleInputs(e){
         
         SetInputs({
@@ -98,6 +109,7 @@ export function CreateDog(){
             [e.target.name]: e.target.value
         });
 
+        // Se setea el estado errors con lo que devuelve la funcion validtateInputs pasadole el valor de cada input.
         setErrors(validateInputs({
             ...inputs,
             [e.target.name]: e.target.value
@@ -107,15 +119,18 @@ export function CreateDog(){
         
     }
 
+
+    // Funcion handleFormDog que guarda el valor del input name en el estado local formDog.
     function handleFormDog(e){
 
-            
+        
         SetFormDog({
             ...formDog,
             [e.target.name]: e.target.value
             
         });
         
+        // Se setea el estado dogErr con lo que devuelve la funcion validtateFormDog pasadole el valor delinput name.
         setDogErr(validateFormDog({
             ...formDog,
             [e.target.name]: e.target.value
@@ -126,8 +141,12 @@ export function CreateDog(){
         
     }
 
+
+    // Funcion handleSelect que guarda el valor del select de temperamento en el estado local formDog.
     function handleSelect(e){
 
+        // Adicinalmente se gurada en el estado local formDog lo que esta guardado en el estado local inputs
+        // el height, weight, life_span como cadena de texto. uniendo los valores min y max.
         SetFormDog({
             ...formDog,
             temperament: [...formDog.temperament, e.target.value],
@@ -137,7 +156,9 @@ export function CreateDog(){
         });
        
     }
-   
+
+
+    // Funcion removeTem elemina un temperamento del array de tempeamentos del formDog cuando el usuario pulsa en boton en el front.
     function removeTem(t){
        
         SetFormDog({
@@ -148,19 +169,26 @@ export function CreateDog(){
 
     }
 
+
+    // Funcion hadleSubmit que envia el estado formDog a la ruta post
     function handleSubmit(e){
 
         e.preventDefault();
         
-        
+        // Se comprueva si hay errores en los dos estados de error y de ser asi se lanza un alert con la 
+        // advertencia para que el usuario verifiquie la informacion de los inputs y no se deja enviar el form.
         if(Object.keys(dogErr).length || Object.keys(errors).length || formDog.name === ''){
 
             alert('¡¡¡Verify that the fields are not empty or with incorrect parameters to create the race!!!')
             
         }else{
+            // Si todo esta bien se envia lo que esta en el estado formDog a la action createDogDB
+            // y se lanza un alert para informar que se creo la raza con exito.
             let a = dispatch(createDogDB(formDog)); 
             alert('Breed created successfully!!!')
-            console.log(a)
+            // console.log(a)
+
+            // Se resetean los estados locales 
             SetInputs({
                 hmin: 0,
                 hmax: 0,
@@ -177,7 +205,8 @@ export function CreateDog(){
                 image: '',
                 temperament: []
             });
-    
+            
+            // Se redirecciona a home
             navigate('/home')
         }
         
@@ -189,6 +218,7 @@ export function CreateDog(){
 
     return(
 
+        // Se renderiza en form.
         <div >
             <Link to={'/home'}><button className={s.buttonGoBack}>Go back to Home</button></Link>
 
@@ -255,7 +285,21 @@ export function CreateDog(){
                                 }
                             </select>
                         </div>
-                        <div >
+                        
+
+                       <div>
+                            <button type="submit" className={s.buttonCreate} >Create Dog</button>
+                            
+                            <Link to={'/home'}><button className={s.buttonCancel}>Cancel</button></Link>
+                       </div>
+
+                       
+                        {/* <p className={s.warnings}>{errorForm}</p> */}
+                    </form>
+                    
+                    
+                </div>
+                <div className={s.box}>
                             <ul className={s.listItems}>
                                 {
                                     formDog.temperament.map(t => 
@@ -267,13 +311,6 @@ export function CreateDog(){
                                 }
 
                             </ul>
-                        </div>
-
-                        <button type="submit" className={s.buttonCreate} >Create Dog</button>
-                        
-                        <Link to={'/home'}><button className={s.buttonCancel}>Cancel</button></Link>
-                        <p className={s.warnings}>{errorForm}</p>
-                    </form>
                 </div>            
             <div>
                 

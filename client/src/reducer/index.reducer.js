@@ -24,7 +24,7 @@ const initialState = {
 const rootReducer = (state= initialState, action) => {
 
     switch(action.type){
-
+        // Guarda todos los dogs en el estado.
         case GET_ALL_DOGS:
             
             return{
@@ -33,16 +33,16 @@ const rootReducer = (state= initialState, action) => {
                 allDogs: action.payload
                 
             }
-
+        // Guarda el dog buscado por nombre.
         case GET_ONE_DOG:
-            console.log('HHHHH',action.payload)
+            // console.log('HHHHH',action.payload)
             return{
                 ...state,
                 dogs: action.payload 
 
             }
 
-
+        // Guarda los temperamtos en su estado. 
         case GET_ALL_TEMPERAMENTS:
             
             return{
@@ -51,6 +51,7 @@ const rootReducer = (state= initialState, action) => {
                 allDogsTemperaments: action.payload
             }
         
+        // Guarda los pesos filtrados desde el back.
         case FILTER_BY_WEIGHT:
 
                        
@@ -59,6 +60,7 @@ const rootReducer = (state= initialState, action) => {
                 dogs: action.payload
             }
 
+        // Filtra los dogs por origen sea de la apo o la DB.
         case FILTER_BY_ORIGIN:
 
             const allDogs = state.allDogs;
@@ -68,7 +70,9 @@ const rootReducer = (state= initialState, action) => {
 
                 dogs: action.payload === 'all' ? state.allDogs : originFilter
             }
+        
 
+        // Filtra los dogs alfabeticamente ordenando asc o desc con el metod sort.
         case FILTER_BY_NAME:
 
             let filterName;
@@ -104,6 +108,7 @@ const rootReducer = (state= initialState, action) => {
                 dogs : action.payload === 'all' ? state.allDogs : filterName
             }
 
+        // Filtra los dogs por el temperamtento seleccionado.
         case FILTER_BY_TEMPERAMENT:
             
             const dogs = state.allDogs;
@@ -118,13 +123,16 @@ const rootReducer = (state= initialState, action) => {
                 dogs:  action.payload === 'select' ? state.allDogs : fileterTemperament
             }
 
+        // Crea un dog en la DB.
+
         case CREATE_DOG_DB:
 
             return{
                 ...state,
 
             }
-
+        
+        // Guarda el detalle del dog que se paso por Id.
         case GET_DOG_DETAIL:
 
             return{

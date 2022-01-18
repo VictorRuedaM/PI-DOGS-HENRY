@@ -66,7 +66,7 @@ router.get('/dogs/:id', async (req, res) => {
         console.log(dog)
         // console.log('DOG>>>', dogsData)
         if(dog.length > 0) return res.status(200).json(dog);
-        else res.status(404).send('There are no breeds of dogs with that Id...');
+        else res.status(404).json('There are no breeds of dogs with that Id...');
 
     } catch (error) {
         console.log(`<<<Error in [/dogs/:id] ${error}>>>`);

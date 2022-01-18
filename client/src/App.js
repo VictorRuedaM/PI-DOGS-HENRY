@@ -9,8 +9,9 @@ function App() {
   return (
     
     <div className="App">
+      {/* Se envuelve tod en el la etiqueta Routes en las nuevas versiones de react router */}
       <Routes>
-        <Route path={'/'} exat element={<LandingPage/>}/>
+        <Route path={'/'} exact element={<LandingPage/>}/>
           
        
 

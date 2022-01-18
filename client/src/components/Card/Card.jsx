@@ -6,7 +6,8 @@ export default function Card(props){
     const {image, name, temperament, weight} = props;
 
     
-
+    // compornente Card encargado del renderizado de cada raza en el home.
+    // recibe los parametros por props desde en home.
     return(
 
         

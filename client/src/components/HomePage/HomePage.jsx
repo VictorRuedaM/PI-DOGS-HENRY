@@ -21,6 +21,7 @@ export default function Home(){
 
     const dispatch = useDispatch();
 
+    // se traen los datos de los estados globales.
     const allDogs = useSelector((state) => state.dogs);
     const allTemperaments = useSelector((state) => state.dogsTemperaments);
 
@@ -31,18 +32,24 @@ export default function Home(){
 
     // Paginado de la aplicación.
 
+    // estado currentPage setea la pagina actual
     const [currentPage, SetCurrentPage] = useState(1);
+    // estado dogsPerPage setea el numero de dogs por pagina.
     const [dogsPerPage, setDogsPerPage] = useState(8);
+    // indexOfLastDog guarda el index del ultimo dog de la operacion currentPage * dogsPerPage.
     const indexOfLastDog = currentPage * dogsPerPage;
+    // indexOfFirstDog guarda el index del primer dog de la operacion indexOfLastDog - dogsPerPage.
     const indexOfFirstDog = indexOfLastDog - dogsPerPage;
+    // currentDogs guarda los index de los dogs que se van a renderizar en cada pagina de apliacer un slice a allDogs con el numero de inicio y de final.
     const currentDogs = allDogs.slice(indexOfFirstDog, indexOfLastDog);
 
+    // Funcion Paginated que setea el estado local currentPage con la pagina actual.
     const paginated = (pageNum) => {
         SetCurrentPage(pageNum);
     }
 
     // console.log('AAAAAA',allDogs)
-    // se cargan por primera vez los datos con el metodo useEffect llamando a la action getAllDogs
+    // se cargan por primera vez los datos con el metodo useEffect llamando a la action getAllDogs, getDogsTemperaments
     useEffect(() => {
         
         dispatch(getAllDogs());
@@ -59,21 +66,21 @@ export default function Home(){
     };
 
 
-    // funcion select Weight
+    // funcion select Weight envia al action filterDogWeight el valor del select para filtrarlo
     function handleFilterByWeight(e){
         e.preventDefault();
         dispatch(filterDogWeight(e.target.value));
         SetCurrentPage(1);
     };
 
-    // ordenar por origen (api o DB)
+    // ordenar por origen (api o DB) envia al action filterDogOrigin el valor del select para filtrarlo
     function handleByOrigin(e){
 
         dispatch(filterDogOrigin(e.target.value))
-
+        SetCurrentPage(1);
     };
 
-    // ordenar por nombre (asc o desc)
+    // ordenar por nombre (asc o desc) envia al action filterDogName el valor del select para filtrarlo
     function handleByName(e){
         
         e.preventDefault();
@@ -82,7 +89,7 @@ export default function Home(){
         SetOrder(`Order ${e.target.value}`)
     };
 
-    // filtrar por temperamento
+    // filtrar por temperamento envia al action filterDogTemperaments el valor del select para filtrarlo
     function handleFilterByTemperaments(e){
         
         e.preventDefault();
@@ -91,8 +98,8 @@ export default function Home(){
 
     };
 
-    console.log('QQQQQ', currentDogs.length)
-
+    
+    // Se renderiza en component Home
     return(
 
         <div>
@@ -164,7 +171,8 @@ export default function Home(){
                 currentPage={currentPage}
             />
             <br />
-
+            
+            {/* Card */}
             <div className={s.card} >
                 {
                     // Mapear el resultado que llega de state
@@ -184,10 +192,13 @@ export default function Home(){
                             e.temperament = arr.toString()
                             
                         }
+
+                        
                         return(
                             // Se le pasa la data a el componente Card 
 
                             <div >
+                                {/* Se envia el Id de la raza para details */}
                                 <Link className={s.link }to={`/home/${e.id}`}>
 
                                     <Card 
@@ -202,6 +213,7 @@ export default function Home(){
                     })
 
                     :
+                    // Loader 
                     <div className={s.preloader}></div>
     
                 }

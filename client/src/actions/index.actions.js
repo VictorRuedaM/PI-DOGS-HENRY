@@ -11,7 +11,7 @@ import {GET_ALL_DOGS,
     } from './actionsExports';
 
 
-
+// Trae todos los dogs de la ruta principal 
 export function getAllDogs(){
 
     return async (dispatch) => {
@@ -26,6 +26,7 @@ export function getAllDogs(){
   
 };
 
+// Trae un dog pasado su nombre por parametro.
 export function getOneDog(value){
 
     return async (dispatch) => {
@@ -48,6 +49,8 @@ export function getOneDog(value){
 }
 
 
+
+// Trae los temperamentos de la ruta y los guarda en la base de datos para luego retornarlos a la action.
 export function getDogsTemperaments(){
 
     return async (dispatch) => {
@@ -61,6 +64,8 @@ export function getDogsTemperaments(){
     }   
 };
 
+
+// Filtra con el metodo sort por peso desde el back y devuelve asc o desc segun sea el valor pasado.
 export function filterDogWeight(value){
 
     return async (dispatch) => {
@@ -75,6 +80,8 @@ export function filterDogWeight(value){
 
 };
 
+
+// Envia el temperamento al reducer para ser filtrado entre las razas.
 export function filterDogTemperaments(value){
 
     return{
@@ -86,7 +93,7 @@ export function filterDogTemperaments(value){
 
 
 
-
+// Envia el parametro asc o desc al reducer para organizar los nombre con el metodo sort.
 export function filterDogName(value){
     
     return {
@@ -96,7 +103,7 @@ export function filterDogName(value){
 
 };
 
-// Filtrar por razas de la api y las creadas en la DB local
+// Filtrar por razas de la api y las creadas en la DB local desde el reducer.
 export function filterDogOrigin(value){
 
     return{
@@ -107,7 +114,7 @@ export function filterDogOrigin(value){
 }
 
 
-
+// Envia a la ruta post la data para crear el dog.
 export function createDogDB(info){
     return async (dispatch) => {
         const response = await axios.post('http://localhost:3001/dog', info);
@@ -116,6 +123,7 @@ export function createDogDB(info){
 }
 
 
+// Envia el Id al back para filtrarlo y debuelve la raza seleccionada en la Card.
 export function getDogDetail(id){
 
     return async (dispatch) => {
