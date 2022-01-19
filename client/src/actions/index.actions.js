@@ -7,21 +7,25 @@ import {GET_ALL_DOGS,
         FILTER_BY_TEMPERAMENT,
         GET_ONE_DOG,
         GET_DOG_DETAIL,
-        DOG_NOT_FOUND
+        
     } from './actionsExports';
 
 
 // Trae todos los dogs de la ruta principal 
 export function getAllDogs(){
 
-    return async (dispatch) => {
+    return  (dispatch) => {
 
-        let dogs = await axios.get('http://localhost:3001/dogs');
-        // console.log(dogs.data)
-        return dispatch({
-            type: GET_ALL_DOGS,
-            payload: dogs.data
+        axios.get('http://localhost:3001/dogs')
+        .then(res => {
+            return dispatch({
+                type: GET_ALL_DOGS,
+                payload: res.data
+            })
+        }).catch(error => {
+            console.log(`<<<Error in [getAllDogs]>>> ${error}`);
         })
+        
     }
   
 };
@@ -41,7 +45,7 @@ export function getOneDog(value){
                     payload: dog.data
             })
         } catch (error) {
-            console.log(error)
+            console.log(`<<<Error in [getOneDog]>>> ${error}`);
             alert('Dog not found!!!')
         }
         
@@ -53,14 +57,19 @@ export function getOneDog(value){
 // Trae los temperamentos de la ruta y los guarda en la base de datos para luego retornarlos a la action.
 export function getDogsTemperaments(){
 
-    return async (dispatch) => {
+    return (dispatch) => {
 
-        let temperaments = await axios.get('http://localhost:3001/temperament');
-        // console.log('fSDFSDFSDFSDFSD',temperaments)
-        return dispatch({
-            type: GET_ALL_TEMPERAMENTS,
-            payload: temperaments.data
-        })
+        axios.get('http://localhost:3001/temperament')
+        // console.log('fSDFSDFSDFSDFSD',temperaments)  
+        .then((res) => {
+            return dispatch({
+                type: GET_ALL_TEMPERAMENTS,
+                payload: res.data
+            })
+        }).catch((error) => {
+            console.log(`<<<Error in [getDogsTemperaments]>>> ${error}`);
+        });
+        
     }   
 };
 
@@ -68,14 +77,18 @@ export function getDogsTemperaments(){
 // Filtra con el metodo sort por peso desde el back y devuelve asc o desc segun sea el valor pasado.
 export function filterDogWeight(value){
 
-    return async (dispatch) => {
+    return (dispatch) => {
 
-        let filterWeight = await axios.get(`http://localhost:3001/weight/${value}`);
-
-        return dispatch({
-            type: FILTER_BY_WEIGHT,
-            payload: filterWeight.data
+        axios.get(`http://localhost:3001/weight/${value}`)
+        .then(res => {
+            return dispatch({
+                type: FILTER_BY_WEIGHT,
+                payload: res.data
+            })
+        }).catch(error => {
+            console.log(`<<<Error in [filterDogWeight]>>> ${error}`);
         })
+        
     }
 
 };
@@ -116,9 +129,13 @@ export function filterDogOrigin(value){
 
 // Envia a la ruta post la data para crear el dog.
 export function createDogDB(info){
-    return async (dispatch) => {
-        const response = await axios.post('http://localhost:3001/dog', info);
-        return response;
+    return  (dispatch) => {
+        axios.post('http://localhost:3001/dog', info)
+        .then(res => {
+            return res.data
+        }).catch((error) => {
+            console.log(`<<<Error in [createDogDB]>>> ${error}`);
+        });
     }
 }
 
@@ -128,13 +145,18 @@ export function getDogDetail(id){
 
     return async (dispatch) => {
 
-        const response = await axios.get(`http://localhost:3001/dogs/${id}`);
+        try {
+            const response = await axios.get(`http://localhost:3001/dogs/${id}`);
 
-        console.log(response);
+            console.log(response);
 
-        return dispatch({
-            type: GET_DOG_DETAIL,
-            payload: response.data
-        })
+            return dispatch({
+                type: GET_DOG_DETAIL,
+                payload: response.data
+            })
+
+        } catch (error) {
+            console.log(`<<<Error in [getDogDetail]>>> ${error}`);
+        }
     }
 }

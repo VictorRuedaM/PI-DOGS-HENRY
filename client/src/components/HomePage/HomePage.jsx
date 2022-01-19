@@ -206,6 +206,7 @@ export default function Home(){
                                         name={e.name}
                                         weight={e.weight}
                                         temperament={e.temperament}
+                                        id={e.id}
                                     />
                                 </Link>
                             </div>

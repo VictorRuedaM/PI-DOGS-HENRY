@@ -3,7 +3,7 @@ import s from './Card.module.css';
 
 export default function Card(props){
 
-    const {image, name, temperament, weight} = props;
+    const {image, name, temperament, weight, id} = props;
 
     
     // compornente Card encargado del renderizado de cada raza en el home.
@@ -11,7 +11,7 @@ export default function Card(props){
     return(
 
         
-        <div className={s.container}>
+        <div className={s.container} key={id}>
             <div className={s.card}>
                 <img className={s.image} src={image} alt="Dog"  />
                 <h2>{name}</h2>

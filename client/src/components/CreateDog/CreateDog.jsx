@@ -304,7 +304,7 @@ export function CreateDog(){
                                 {
                                     formDog.temperament.map(t => 
                                         
-                                        <li className={s.item}>{t} 
+                                        <li className={s.item} key={t}>{t} 
                                         <button className={s.buttonRemoveTem} onClick={() => removeTem(t)}>X</button>
                                         </li>
                                     )
