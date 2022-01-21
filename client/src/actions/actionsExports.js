@@ -8,3 +8,4 @@ export const FILTER_BY_TEMPERAMENT = 'FILTER_BY_TEMPERAMENT';
 export const CREATE_DOG_DB = 'CREATE_DOG_DB';
 export const GET_DOG_DETAIL = 'GET_DOG_DETAIL';
 export const DOG_NOT_FOUND = 'DOG_NOT_FOUND';
+export const CLEAR_DETAILS = 'CLEAR_DETAILS';

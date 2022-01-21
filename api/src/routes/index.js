@@ -40,6 +40,8 @@ router.get('/dogs', async (req, res) => {
 
             if(dog.length > 0) return res.status(200).json(dog);
             else res.status(404).json('There are no breeds of dogs with that name...');
+            
+            // return res.status(200).json(dog);
 
         }else{
             return res.status(200).json(dogsData);

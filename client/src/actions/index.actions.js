@@ -7,7 +7,7 @@ import {GET_ALL_DOGS,
         FILTER_BY_TEMPERAMENT,
         GET_ONE_DOG,
         GET_DOG_DETAIL,
-        
+        CLEAR_DETAILS
     } from './actionsExports';
 
 
@@ -48,6 +48,7 @@ export function getOneDog(value){
             console.log(`<<<Error in [getOneDog]>>> ${error}`);
             alert('Dog not found!!!')
         }
+        
         
     }
 }
@@ -158,5 +159,12 @@ export function getDogDetail(id){
         } catch (error) {
             console.log(`<<<Error in [getDogDetail]>>> ${error}`);
         }
+    }
+}
+
+// Action que limpia el estado de details en el reducer para que al renderizar un dog no se vea al principio el anteriro.
+export function clearDetails(){
+    return{
+        type: CLEAR_DETAILS
     }
 }

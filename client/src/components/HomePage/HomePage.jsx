@@ -28,6 +28,9 @@ export default function Home(){
     // Estado de ordenamiento por nombre
     const [order, SetOrder] = useState('');
 
+
+    const [alert,setAlert] = useState({a: ''});
+
     
 
     // Paginado de la aplicación.
@@ -97,7 +100,10 @@ export default function Home(){
         SetCurrentPage(1);
 
     };
+   
 
+
+    
     
     // Se renderiza en component Home
     return(
@@ -173,10 +179,15 @@ export default function Home(){
             <br />
             
             {/* Card */}
+
+            
+            
             <div className={s.card} >
                 {
                     // Mapear el resultado que llega de state
-                    currentDogs.length ? 
+                    
+                    
+                   currentDogs.length > 0? 
                     currentDogs && currentDogs.map(e => {
                         
                         // Los temperamentos de los dogs creados hay que pasarlos de array de objetos a string
@@ -199,8 +210,8 @@ export default function Home(){
 
                             <div >
                                 {/* Se envia el Id de la raza para details */}
-                                <Link className={s.link }to={`/home/${e.id}`}>
-
+                                <Link className={s.link }to={`/home/${e.id}`} >
+                               
                                     <Card 
                                         image={e.image} 
                                         name={e.name}
@@ -215,9 +226,22 @@ export default function Home(){
 
                     :
                     // Loader 
-                    <div className={s.preloader}></div>
+                    
+                    <div className={s.preloader}></div> 
+
+                    
     
                 }
+
+                {/* Prueba de la correcion del PI */}
+                {/* <div>
+                    {
+                        //  allDogs.length < 1 ? <p className={s.alert}>Dog not found!!</p> : null
+
+                        currentDogs.length < 1 ? <p className={s.alert}>Dog not found</p> : null
+                    }
+                </div>
+            */}
 
             </div>
 

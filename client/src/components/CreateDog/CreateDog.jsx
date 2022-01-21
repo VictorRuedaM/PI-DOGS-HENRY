@@ -17,7 +17,9 @@ function validateInputs(inputs){
     if(inputs.hmax < 0 || inputs.hmax > 100){
         errorsInputs.hmax = '** Require field, please write a valid number between 1 and 100 **'
     }
-    
+    if(inputs.hmax < inputs.hmin){
+        errorsInputs.hmin = '** The minimum value cannot be greater than the maximum value. **'
+    }
     
     
 
@@ -28,6 +30,10 @@ function validateInputs(inputs){
         errorsInputs.wmax = '** Require field, please write a valid number between 1 and 100 **'
         
     }
+
+    if(inputs.wmax < inputs.wmin){
+        errorsInputs.wmin = '** The minimum value cannot be greater than the maximum value. **'
+    }
     
 
     if(inputs.lmin < 0 || inputs.lmin > 8){
@@ -35,6 +41,9 @@ function validateInputs(inputs){
     }
     if(inputs.lmax < 0 || inputs.lmax > 25){
         errorsInputs.lmax = '** Require field, please write a valid number between 1 and 25 **'
+    }
+    if(inputs.lmax < 10 && inputs.lmax < inputs.lmin){
+        errorsInputs.lmin = '** The minimum value cannot be greater than the maximum value. **'
     }
 
 
@@ -147,8 +156,13 @@ export function CreateDog(){
 
         // Adicinalmente se gurada en el estado local formDog lo que esta guardado en el estado local inputs
         // el height, weight, life_span como cadena de texto. uniendo los valores min y max.
+
+        // Condicional que evalua se el temperamento ya fue seleccionado en el select  y esta en el estado para no dejarlo repetir.
+        if(formDog.temperament.includes(e.target.value)) return 0;
+
         SetFormDog({
             ...formDog,
+
             temperament: [...formDog.temperament, e.target.value],
             'height':`${inputs.hmin} - ${inputs.hmax}`,
             'weight':`${inputs.wmin} - ${inputs.wmax}`,

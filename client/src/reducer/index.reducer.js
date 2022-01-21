@@ -7,7 +7,8 @@ import {GET_ALL_DOGS,
         GET_ONE_DOG,
         CREATE_DOG_DB,
         GET_DOG_DETAIL,
-        DOG_NOT_FOUND
+        DOG_NOT_FOUND,
+        CLEAR_DETAILS
     } from '../actions/actionsExports';
 
 
@@ -139,7 +140,14 @@ const rootReducer = (state= initialState, action) => {
                 ...state,
                 dogDetail: action.payload
             }
-            
+        
+        // Limpia el estado de los detalles para que no se vea el dog anterior cuando se renderice uno nuevo.
+        case CLEAR_DETAILS:
+
+            return{
+                ...state,
+                dogDetail: []
+            }
 
         default:
             return{

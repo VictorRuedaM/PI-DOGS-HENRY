@@ -2,7 +2,7 @@ import React from "react";
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import {Link, useParams} from 'react-router-dom';
-import {getDogDetail} from '../../actions/index.actions';
+import {getDogDetail, clearDetails} from '../../actions/index.actions';
 import s from './Detail.module.css';
 
 
@@ -20,6 +20,11 @@ export function DetailsPage(){
     },[dispatch]);
 
     const dog = useSelector((state) => state.dogDetail);
+
+    // Funcion que llama el action que limpia el estado en el reducer para que no se vea el dog anterior al ver uno nuevo.
+    function handleClearDog(){
+        dispatch(clearDetails());
+    }
     
     // console.log('>>>>>>>>>>>>>>>>>>>>>',dog[0].temperaments[1])
     // Se renderiza la card de details.
@@ -46,7 +51,7 @@ export function DetailsPage(){
                     <div className={s.preloader}></div>
                 }
 
-                <Link to={'/home'}><button className={s.buttonGoBack}>Go back to home</button></Link>
+                <Link to={'/home'}><button className={s.buttonGoBack} onClick={() => handleClearDog()}>Go back to home</button></Link>
             </div>
         </div>
     )
